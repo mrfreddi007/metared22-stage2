@@ -1,0 +1,1 @@
+So I don't know how to put this, but even though Empress Ghost is a recent conquest of the Chaturn empire, they are already a key piece to our empire. So some God in the chat decided to make them a dnd character sheet. Try to find it, and the passphrase to the next part is the player's name on that character sheet.

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href=
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity=
+                  "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <script src=
+                    "https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity=
+                    "sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous">
+    </script>
+
+    <script src=
+                    "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity=
+                    "sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous">
+    </script>
+
+    <script src=
+                    "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity=
+                    "sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+<div class="container my-3">
+    <h1>Take your Notes here</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                Add a Note
+            </h5>
+            <form onsubmit="return addNote(this)">
+                <div class="form-group">
+                    <input class="form-control" name='content' id="add_note_content">
+                </div>
+                <button class="btn btn-primary" type="submit" style="background-color:green" id="add_note_button">
+                    Add Note
+                </button>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+    <h1>Search notes</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                Search a Note
+            </h5>
+            <form onsubmit="return searchForm(this)">
+                <div class="form-group">
+                    <input class="form-control" name='search'>
+                </div>
+                <button class="btn btn-primary" type="submit" style="background-color:green">
+                    Search Note
+                </button>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+    <h1>Note</h1>
+    <hr>
+    <div class="row container-fluid">
+        <span id="message"></span>&nbsp;
+        <b><span id="note"></span></b>&nbsp;
+        <img id="image" width="50" height="50" src="#">
+    </div>
+
+</div>
+
+<script>
+    function addNote(form) {
+        let data = new FormData(form);
+
+        localStorage.setItem('note', data.get('content'));
+        location.reload();
+        return false;
+    }
+
+    function searchForm(form) {
+        let data = new FormData(form);
+        document.location.search = `search=${data.get('search')}`;
+        search();
+        return false;
+    }
+
+    function search() {
+        const search_content = new URLSearchParams(window.location.search).get('search');
+        if (!search_content) return;
+        const note = localStorage.getItem('note') ?? "";
+        if (note.includes(search_content)) {
+            $("#message").text("Found!");
+            $("#note").text(note);
+            $("#image").attr("src", "https://toppng.com/uploads/preview/sticky-note-green-11533038457invbxylvsm.png");
+        } else {
+            $("#message").text("Not found!");
+            $("#image").attr("src", "https://toppng.com/uploads/preview/sticky-note-red-11533038605trfqqhbw18.png");
+        }
+    }
+
+    window.onload = () => {
+        search();
+    }
+
+
+</script>
+
+</body>
+
+</html>
